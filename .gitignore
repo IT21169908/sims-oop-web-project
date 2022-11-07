@@ -24,6 +24,7 @@
 
 # Only accept external-libraries dir .jar files
 !/external-libraries/*.jar
+!/src/main/webapp/WEB-INF/lib/*.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

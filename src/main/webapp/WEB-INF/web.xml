@@ -54,6 +54,8 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
   </servlet-mapping>-->
     
   <!-- TEACHER ROUTES  -->
+  
+  <!-- Main Dashboard -->
   <servlet>
       <servlet-name>teacher-dashboard</servlet-name>
       <jsp-file>/resources/views/teacher/index.jsp</jsp-file>
@@ -62,14 +64,6 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
       <servlet-name>teacher-dashboard</servlet-name>
       <url-pattern>/teacher/dashboard</url-pattern>
   </servlet-mapping>
+   
   
-  <servlet>
-      <servlet-name>teacher-leave-request</servlet-name>
-      <jsp-file>/resources/views/teacher/request-leave.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-      <servlet-name>teacher-leave-request</servlet-name>
-      <url-pattern>/teacher/leave-requests/add</url-pattern>
-  </servlet-mapping>
-    
 </web-app>

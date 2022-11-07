@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -30,10 +31,11 @@
 				<div class="page-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="page-title">Add Leave</h3>
+							<h3 class="page-title">Edit Leave</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="teacher/manage-leave-requests">Manage Leave</a></li>
-								<li class="breadcrumb-item active">Request Leave</li>
+								<li class="breadcrumb-item"><a
+									href="teacher/manage-leave-requests">Manage Leave</a></li>
+								<li class="breadcrumb-item active">Edit Leave</li>
 							</ul>
 						</div>
 					</div>
@@ -45,7 +47,9 @@
 								<span>${errors[0]}</span>
 							</div>
 						</div>
-						<% request.getSession().removeAttribute("errors"); %>
+						<%
+						request.getSession().removeAttribute("errors");
+						%>
 					</c:if>
 					<c:if test="${ success != null }">
 						<div class="d-flex justify-content-center w-100 mt-2">
@@ -53,12 +57,16 @@
 								<span>${success}</span>
 							</div>
 						</div>
-						<% request.getSession().removeAttribute("success"); %>
+						<%
+						request.getSession().removeAttribute("success");
+						%>
 					</c:if>
 					<div class="col-sm-12">
 						<div class="card">
 							<div class="card-body">
 								<form action="/teacher/leave-requests" method="POST">
+									<input type="hidden" name="_method" value="put" />
+									<input type="hidden" name="leave" value="${leaveRequest.id }" />
 									<div class="row">
 										<div class="col-12">
 											<h5 class="form-title">
@@ -67,20 +75,26 @@
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
-												<label>Leave Date</label> <input type="date" name="date"
-													class="form-control">
+												<label>Leave Date</label> 
+												<input type="date"  value="${leaveRequest.date }" name="date" class="form-control">
 											</div>
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
-												<label>No of days</label> <input type="number"
-													name="days_count" class="form-control">
+												<label>No of days</label> 
+												<input type="number" value="${leaveRequest.days_count }" name="days_count" class="form-control">
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group">
 												<label>Reason</label>
-												<textarea name="reason" class="form-control"></textarea>
+												<textarea name="reason" class="form-control">${leaveRequest.reason }</textarea>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												<label>Cancel Reason</label>
+												<textarea name="cancel_reason" class="form-control">${leaveRequest.cancel_reason }</textarea>
 											</div>
 										</div>
 
@@ -102,7 +116,7 @@
 
 
 	<jsp:include page="/resources/views/teacher/components/scripts.jsp" />
-
+	<script src="/resources/views/teacher/js/leave-manager.js"></script>
 </body>
 
 </html>

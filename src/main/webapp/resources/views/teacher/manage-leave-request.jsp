@@ -34,7 +34,8 @@
 						<div class="col">
 							<h3 class="page-title">My Leave List</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><a href="teacher/manage-leave-requests">Manage Leaves</a></li>
+								<li class="breadcrumb-item"><a
+									href="teacher/manage-leave-requests">Manage Leaves</a></li>
 								<li class="breadcrumb-item active">My Leave List</li>
 							</ul>
 						</div>
@@ -45,7 +46,7 @@
 						<div class="card card-table">
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table table-hover table-center mb-0 datatable">
+									<table class="table table-hover table-center mb-0" id="leave-requests">
 										<thead>
 											<tr>
 												<th>ID</th>
@@ -62,7 +63,7 @@
 										</thead>
 										<tbody>
 											<c:forEach var="leave" items="${LeaveRequestList}">
-												<tr>
+												<tr id="leave-${leave.id}">
 													<td>${leave.id}</td>
 													<td>${leave.date}</td>
 													<td>${leave.days_count}</td>
@@ -73,10 +74,12 @@
 													<td>${leave.created_at}</td>
 													<td>${leave.updated_at}</td>
 													<td>
-														<form method="POST" action="GetEmployeeServlet">
-															<input type="hidden" name="employeeID" value="${leave.id}" /> 
-															<input type="submit" value="Select Employee" class="select-button" />
-														</form>
+														<a href="/teacher/leave-requests/edit?leave=${leave.id}" class="btn btn-sm bg-success-light me-2"> 
+															<i class="fas fa-pen"></i>
+														</a>
+														<a href="#" class="btn btn-sm bg-danger-light delete-leave" data-leave="${leave.id}">
+															<i class="fas fa-trash"></i>
+														</a>
 													</td>
 												</tr>
 											</c:forEach>
@@ -97,6 +100,7 @@
 
 
 	<jsp:include page="/resources/views/teacher/components/scripts.jsp" />
+	<script src="/resources/views/teacher/js/leave-manager.js"></script>
 
 </body>
 

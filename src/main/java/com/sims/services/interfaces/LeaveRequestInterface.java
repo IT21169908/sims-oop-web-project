@@ -19,4 +19,8 @@ public interface LeaveRequestInterface {
    public boolean create(LeaveRequest leave_req);
 
    public ArrayList<LeaveRequest> all();
+   
+   public boolean destroy(String leave_id);
+
+   boolean update(LeaveRequest leave);
 }
