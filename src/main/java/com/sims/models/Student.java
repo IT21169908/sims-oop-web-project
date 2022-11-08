@@ -7,7 +7,7 @@ package com.sims.models;
  * @author Indudini
  *
  */
-public class Student {
+public class Student extends User{
    
    private int studentID;
    
@@ -24,12 +24,12 @@ public class Student {
    private String studentAddress;
    
    
-
+   //default constructor
    public Student() {
-     
+     super();
    }
    
-
+   //parameterized constructor
    public Student(int studentID, String studentName, String studentClass, String studentDOB, String studentParentName,
          String studentMobileNumber, String studentAddress) {
       super();
