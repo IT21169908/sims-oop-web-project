@@ -3,7 +3,7 @@ $(function () {
 	console.log('GRADE MANAGER JS LOADED')
 
 	let grade_table = null;
-	if ($("#grades").length) {
+	if ($("#grade").length) {
 		grade_table = $("#grade").DataTable();
 	}
 
