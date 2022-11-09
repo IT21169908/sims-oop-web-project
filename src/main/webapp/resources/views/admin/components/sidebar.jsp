@@ -7,16 +7,15 @@
 				</li>
 
 				<li class="menu-title">
-					<span><a href="admin/dashboardl">Dashboard</a></span>
+					<span><a href="/admin/dashboard">Dashboard</a></span>
 				</li>
 				<li class="submenu">
 					<a href="#">
-						<i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span>
+						<i class="fas fa-users"></i> <span>Users</span> <span class="menu-arrow"></span>
 					</a>
 					<ul>
-						<li><a href="/admin/students">Student List</a></li>
-						<li><a href="/admin/add-student">Student Add</a></li>
-						<li><a href="/admin/edit-student">Edit-Student</a></li>
+						<li><a href="/admin/users/register">Register</a></li>
+						<li><a href="/admin/users">Manage Users</a></li>
 					</ul>
 				</li>
 				<li class="submenu">
