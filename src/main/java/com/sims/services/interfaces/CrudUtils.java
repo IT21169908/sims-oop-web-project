@@ -6,14 +6,16 @@ import com.sims.models.Student;
 
 public interface CrudUtils<E, ID> {
 
-   public boolean addStudent(E student) throws Exception;
+   public boolean create(E student) throws Exception;
+   
+   public ArrayList<E> all() throws Exception;
 
-   public boolean updateStudent(E student) throws Exception;
+   public boolean update(E student) throws Exception;
 
-   public boolean deleteStudent(ID id) throws Exception;
+   public boolean destroy(ID id) throws Exception;
 
-   public Student searchStudent(ID id) throws Exception;
+   public E search(ID id) throws Exception;
 
-   public ArrayList<Student> getAllStudents() throws Exception;
+   
 
 }
