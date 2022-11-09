@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=0">
-<title>Manage Subjects | SIMS</title>
+<title>Manage Grades | SIMS</title>
 
 <link rel="shortcut icon" href="/resources/images/favicon.png">
 
@@ -32,17 +32,17 @@
 				<div class="page-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="page-title">Subjects List</h3>
+							<h3 class="page-title">Grades List</h3>
 							<ul class="breadcrumb">
 								<li class="breadcrumb-item"><i class="fa fa-home"></i> <a href="/admin/dashboard">Dashboard</a></li>
-								<li class="breadcrumb-item active">Subjects List</li>
+								<li class="breadcrumb-item active">Grades List</li>
 							</ul>
 						</div>
                         <div class="col-auto text-end float-end ms-auto">
                             <a href="#" class="btn btn-outline-primary me-2">
                                 <i class="fas fa-download"></i>&emsp;Download
                             </a>
-                            <a href="/admin/subjects/add" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                            <a href="/admin/grades/add" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                         </div>
 					</div>
 				</div>
@@ -51,11 +51,10 @@
 						<div class="card card-table">
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table table-hover table-center mb-0" id="subjects">
+									<table class="table table-hover table-center mb-0" id="grade">
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>CODE</th>
 												<th>TITLE</th>
 												<th>CREATED AT</th>
 												<th>UPDATED AT</th>
@@ -63,20 +62,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach var="subject" items="${subjectList}">
-												<tr id="subject-${subject.id}">
-													<td>${subject.id}</td>
-													<td>${subject.code}</td>
-													<td>${subject.title}</td>
-													<td>${subject.created_at}</td>
-													<td>${subject.updated_at}</td>
+											<c:forEach var="grade" items="${gradeList}">
+												<tr id="grade-${grade.id}">
+													<td>${grade.id}</td>
+													<td>${grade.title}</td>
+													<td>${grade.created_at}</td>
+													<td>${grade.updated_at}</td>
 													<td>
-														<a href="/admin/subjects/edit?subject=${subject.id}" title="Edit Subject"
+														<a href="/admin/grades/edit?grade=${grade.id}" title="Edit Grade"
 															class="btn btn-sm bg-success-light me-2"> 
 															<i class="fas fa-pen"></i>
 														</a>
-														<a href="#" title="Delete Subject" data-subject="${subject.id}"
-															class="btn btn-sm bg-danger-light delete-subject" >
+														<a href="#" title="Delete Grade" data-grade="${grade.id}"
+															class="btn btn-sm bg-danger-light delete-grade" >
 															<i class="fas fa-trash"></i>
 														</a>
 													</td>
@@ -99,7 +97,7 @@
 
 
 	<jsp:include page="/resources/views/admin/components/scripts.jsp" />
-	<script src="/resources/views/admin/js/subject-manager.js"></script>
+	<script src="/resources/views/admin/js/grade-manager.js"></script>
 
 </body>
 

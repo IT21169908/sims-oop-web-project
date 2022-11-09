@@ -28,6 +28,15 @@
 						<li><a href="/admin/subjects/add">Subject Add</a></li>
 					</ul>
 				</li>
+				<li class="submenu">
+					<a href="#">
+						<i class="fas fa-book-reader"></i><span>Grades</span><span class="menu-arrow"></span>
+					</a>
+					<ul>
+						<li><a href="/admin/grades">Grade List</a></li>
+						<li><a href="/admin/grades/add">Grade Add</a></li>
+					</ul>
+				</li>
 				<li>
 					<a href="time-table.html">
 						<i class="fas fa-table"></i>

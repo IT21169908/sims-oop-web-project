@@ -40,6 +40,18 @@ public class LoginServlet extends HttpServlet {
 	      String action = request.getServletPath();
 	      String pathInfo = request.getPathInfo() == null ? action : request.getPathInfo();
 	      
+	      // If a logged user tries to access the login page then redirect to the exact dashboard
+	      if (request.getSession(false) != null) {          
+	          User user = (User) request.getSession(false).getAttribute("user");
+	          
+	          if (user != null) {
+	             String userType = user.getType();
+	             log("====================== LOGIN LOG: logged user redirecting to " + userType + "-dashboard ============================="); 
+	             response.sendRedirect(request.getContextPath() + userType + "/dashboard");
+	             return;
+	          }
+	      }
+	      
 	      if (ajax) {
 	         log("=================== LOGIN LOG: HANDLE GET AJAX REQUESTS ============================");
 	      } else {
