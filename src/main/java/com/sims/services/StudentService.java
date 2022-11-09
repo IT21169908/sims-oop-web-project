@@ -11,32 +11,16 @@ import com.sims.services.interfaces.StudentInterface;
 
 public class StudentService implements StudentInterface {
 
+   
+   
    @Override
-   public boolean add(Student student) throws Exception {
+   public boolean create(Student student) throws Exception {
       // TODO Auto-generated method stub
       return false;
    }
-
+   
    @Override
-   public boolean update(Student student) throws Exception {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean delete(Integer id) throws Exception {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public Student search(Integer id) throws Exception {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public ArrayList<Student> getAll() throws Exception {
+   public ArrayList<Student> all() throws Exception {
       Connection con = ConnectionProvider.getConnection();
       PreparedStatement pstm = con.prepareStatement("SELECT * FROM Student");
 
@@ -55,6 +39,24 @@ public class StudentService implements StudentInterface {
 
       return studentList;
       
+   }
+
+   @Override
+   public boolean update(Student student) throws Exception {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean destroy(Integer id) throws Exception {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public Student search(Integer id) throws Exception {
+      // TODO Auto-generated method stub
+      return null;
    }
 
   
