@@ -13,7 +13,7 @@
 	<meta name="author" content="">
 	<title>Sign in | School Information Management System</title>
 	<!-- Favicon -->
-	<link href="./resources/images/favicon.ico" rel="icon" />
+	<link href="/resources/images/favicon.png" rel="icon" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 	

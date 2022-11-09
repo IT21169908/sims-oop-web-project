@@ -1,16 +1,16 @@
 
-<!-- If user not loged in as admin then redirect to login -->
+<!-- If user not logged in as admin then redirect to login -->
 ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</script>" : ""}
 <!-- ================================================================================== -->
 
 <div class="header">
 
 	<div class="header-left">
-		<a href="index.html" class="logo"> <img
-			src="/resources/assets/img/logo.png" alt="Logo">
-		</a> <a href="index.html" class="logo logo-small"> <img
-			src="/resources/assets/img/logo-small.png" alt="Logo" width="30"
-			height="30">
+		<a href="/admin/dashboard" class="logo"> 
+			<img src="/resources/images/logo-text.png" alt="Logo">
+		</a> 
+		<a href="/admin/dashboard" class="logo logo-small"> 
+			<img src="/resources/images/plain-logo.png" alt="Logo" width="30" height="30">
 		</a>
 	</div>
 
@@ -36,7 +36,7 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 
 		<li class="nav-item dropdown noti-dropdown"><a href="#"
 			class="dropdown-toggle nav-link" data-bs-toggle="dropdown"> <i
-				class="far fa-bell"></i> <span class="badge badge-pill">3</span>
+				class="far fa-bell"></i> <span class="badge badge-pill">1</span>
 		</a>
 			<div class="dropdown-menu notifications">
 				<div class="topnav-dropdown-header">
@@ -53,8 +53,8 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 									</span>
 									<div class="media-body flex-grow-1">
 										<p class="noti-details">
-											<span class="noti-title">Carlson Tech</span> has approved <span
-												class="noti-title">your estimate</span>
+											<span class="noti-title">Section head</span> need approval for<span
+												class="noti-title">New documents</span>
 										</p>
 										<p class="noti-time">
 											<span class="notification-time">4 mins ago</span>
@@ -70,26 +70,28 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 			</div></li>
 
 
-		<li class="nav-item dropdown has-arrow"><a href="#"
-			class="dropdown-toggle nav-link" data-bs-toggle="dropdown"> <span
-				class="user-img"><img class="rounded-circle"
-					src="/resources/assets/img/profiles/avatar-01.jpg" width="31"
-					alt="Ryan Taylor"></span>
-		</a>
+		<li class="nav-item dropdown has-arrow">
+			<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown"> 
+				<span class="user-img">
+					<img class="rounded-circle" src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }" 
+					width="31" alt="${user.name != null ? user.name : 'Admin user img' }">
+				</span>
+			</a>
 			<div class="dropdown-menu">
 				<div class="user-header">
 					<div class="avatar avatar-sm">
-						<img src="/resources/assets/img/profiles/avatar-01.jpg"
+						<img src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }"
 							alt="User Image" class="avatar-img rounded-circle">
 					</div>
 					<div class="user-text">
-						<h6>Ryan Taylor</h6>
+						<h6 style="text-transform: capitalize">${user.name != null ? user.name : "No Name" }</h6>
 						<p class="text-muted mb-0">Administrator</p>
 					</div>
 				</div>
-				<a class="dropdown-item" href="/profile">My Profile</a> <a
-					class="dropdown-item" href="/logout">Logout</a>
-			</div></li>
+				<a class="dropdown-item" href="/profile">My Profile</a> 
+				<a class="dropdown-item" href="/logout">Logout</a>
+			</div>
+		</li>
 
 	</ul>
 
