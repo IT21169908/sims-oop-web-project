@@ -5,19 +5,20 @@ import java.sql.Statement;
 
 public class StudentTable {
 
-   String sqlQuery = "CREATE TABLE IF NOT EXISTS Student("
-         + "id int(11) unsigned NOT NULL,"
-         + "studentID INT AUTO_INCREMENT NOT NULL,"
-         + "studentName VARCHAR(100)NOT NULL,"
-         + "studentClass VARCHAR(10) NOT NULL,"
-         + "studentDOB DATE NOT NULL,"
-         + "studentParentName VARCHAR(100) NOT NULL,"
-         + "studentMobileNumber VARCHAR(11) NOT NULL,"
-         + "studentAddress VARCHAR(225) NOT NULL,"
-         + "CONSTRAINT PRIMARY KEY(studentID),"
-         + "CONSTRAINT FOREIGN KEY (id) REFERENCES users (id)"
-         + "On UPDATE CASCADE On DELETE CASCADE"
-         + ")ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4";
+   String sqlQuery = "CREATE TABLE `students` "
+         + " `id` int(11) unsigned NOT NULL,"
+         + " `user_id` int(11) unsigned DEFAULT NULL,"
+         + " `name` varchar(100) NOT NULL,"
+         + " `dob` date NOT NULL,"
+         + " `parent_name` varchar(100) NOT NULL,"
+         + " `mobile_number` varchar(11) NOT NULL,"
+         + " `address` varchar(225) NOT NULL,"
+         + " `created_at` datetime DEFAULT current_timestamp(),"
+         + " `updated_at` datetime DEFAULT current_timestamp(),"
+         + " PRIMARY KEY (`id`),\r\n"
+         + " KEY `student_user_fk` (`user_id`),\r\n"
+         + " CONSTRAINT `student_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE"
+         + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
    public StudentTable(Statement stmt) {
 
