@@ -22,6 +22,11 @@
 
 <body>
 
+<!-- ==================================================== -->
+<!-- If the user logged in then redirect back to the page -->
+${user != null ? "<script>history.back()</script>" : ""}
+<!-- ==================================================== -->
+
 	<div class="container" id="container">
 	
 		<div class="form-container sign-in-container">

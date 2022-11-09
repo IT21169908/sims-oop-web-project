@@ -10,7 +10,7 @@ import com.sims.models.User;
  * 
  * @author maneesh
  */
-public interface UserServiceInterface {
+public interface UserInterface {
 
 	/**
 	 * Get User by using email address

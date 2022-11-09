@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sims.models.User;
-import com.sims.services.interfaces.UserServiceInterface;
+import com.sims.services.interfaces.UserInterface;
 import com.sims.utils.Validations;
 
 /**
@@ -22,7 +22,7 @@ public class ValidationService {
 		try {
 			List<String> errorsList = new ArrayList<>();
 			
-			UserServiceInterface userService = new UserService();
+			UserInterface userService = new UserService();
 			User user = userService.getUserByEmail(email);
 			
 			if (user == null) {

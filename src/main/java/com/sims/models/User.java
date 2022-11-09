@@ -23,14 +23,16 @@ public class User {
 	private String password;
 	private String nic;
 	private String profile_photo;
-	private String user_type;
+	private String type;
 	private String email_verified;
 	private String email_Verify_code;
 	private String password_reset_code;
 	private String created_at;
 	private String updated_at;
 	
-	public User() {}
+	public User() {
+	   super();
+	}
 	
 	public User(int id) {
 	     super(); 
@@ -49,7 +51,7 @@ public class User {
 	                this.password = "";
 	                this.nic = rSet.getString(5);
 	                this.profile_photo = rSet.getString(6);
-	                this.user_type = rSet.getString(7);
+	                this.type = rSet.getString(7);
 	                this.email_verified = rSet.getString(8);
 	                this.email_Verify_code = rSet.getString(9);
 	                this.password_reset_code = rSet.getString(10); 
@@ -112,12 +114,12 @@ public class User {
       this.profile_photo = profile_photo;
    }
 
-   public String getUser_type() {
-      return user_type;
+   public String getType() {
+      return type;
    }
 
-   public void setUser_type(String user_type) {
-      this.user_type = user_type;
+   public void setType(String type) {
+      this.type = type;
    }
 
    public String getEmail_verified() {

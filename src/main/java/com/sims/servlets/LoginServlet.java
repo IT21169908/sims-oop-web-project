@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.sims.models.User;
 import com.sims.services.AuthService;
 import com.sims.services.ValidationService;
-import com.sims.services.interfaces.AuthServiceInterface;
+import com.sims.services.interfaces.AuthInterface;
 
 /**
  * Servlet implementation class LoginServlet
@@ -90,9 +90,9 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 		   // Validate and get user by email and password
-			AuthServiceInterface authService = new AuthService();
+			AuthInterface authService = new AuthService();
 			User user = authService.userLoginByEmail(email, password);
-			String userType = user.getUser_type();
+			String userType = user.getType();
 			
 			// If user not found then redirect back to login with errors
 			if (user == null || user.getId() <= 0) {

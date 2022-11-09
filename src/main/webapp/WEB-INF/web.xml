@@ -35,5 +35,43 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
       <url-pattern>/teacher/dashboard</url-pattern>
   </servlet-mapping>
    
+  <!-- ADMIN ROUTES  -->
+   <servlet>
+      <servlet-name>admin-dashboard</servlet-name>
+      <jsp-file>/resources/views/admin/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>admin-dashboard</servlet-name>
+      <url-pattern>/admin/dashboard</url-pattern>
+  </servlet-mapping>
   
+   
+   <servlet>
+      <servlet-name>admin-add-student</servlet-name>
+      <jsp-file>/resources/views/admin/add-student.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>admin-add-student</servlet-name>
+      <url-pattern>/admin/add-student</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+      <servlet-name>admin-student-list</servlet-name>
+      <jsp-file>/resources/views/admin/student-list.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>admin-student-list</servlet-name>
+      <url-pattern>/admin/students</url-pattern>
+  </servlet-mapping>
+    
+     <servlet>
+      <servlet-name>admin-edit-student</servlet-name>
+      <jsp-file>/resources/views/admin/edit-student.jsp</jsp-file>
+  </servlet>
+    
+    <servlet-mapping>
+      <servlet-name>admin-edit-student</servlet-name>
+      <url-pattern>/admin/edit-student</url-pattern>
+  </servlet-mapping>
+    
 </web-app>

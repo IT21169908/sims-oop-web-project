@@ -26,7 +26,7 @@ public class UsersTable {
                   + " password varchar(255) NOT NULL, "
                   + " nic varchar(12) DEFAULT NULL, "
                   + " profile_photo varchar(150) DEFAULT NULL, "
-                  + " user_type enum('admin','teacher','student','') DEFAULT NULL, "
+                  + " type enum('admin','teacher','student','') DEFAULT NULL, "
                   + " email_verified tinyint(4) NOT NULL DEFAULT 0, "
                   + " email_verify_code varchar(8) DEFAULT NULL, "
                   + " password_reset_code varchar(255) DEFAULT NULL, "

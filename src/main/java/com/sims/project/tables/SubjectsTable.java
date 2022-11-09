@@ -21,10 +21,12 @@ public class SubjectsTable {
             stmt.executeUpdate(
                   " CREATE TABLE IF NOT EXISTS " + tableName + "("
                   + " id int(11) unsigned NOT NULL AUTO_INCREMENT, "
+                  + " code varchar(255) NOT NULL, "
                   + " title varchar(255) NOT NULL, "
                   + " created_at datetime DEFAULT current_timestamp(), "
                   + " updated_at datetime DEFAULT current_timestamp(), "
                   + " PRIMARY KEY (id) "
+                  + " UNIQUE KEY subject_code (code) "
                   + ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
             );
             

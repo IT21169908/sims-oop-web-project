@@ -10,7 +10,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import com.sims.configs.ConnectionProvider;
 import com.sims.models.User;
-import com.sims.services.interfaces.AuthServiceInterface;
+import com.sims.services.interfaces.AuthInterface;
 import com.sims.utils.QueryBuilder;
 
 /**
@@ -18,7 +18,7 @@ import com.sims.utils.QueryBuilder;
  * 
  * @author maneesh
  */
-public class AuthService implements AuthServiceInterface {
+public class AuthService implements AuthInterface {
 	
 	@Override
 	public User userLoginByEmail(String email, String password) {

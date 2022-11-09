@@ -10,7 +10,7 @@ import com.sims.models.User;
  * 
  * @author maneesh
  */
-public interface AuthServiceInterface {
+public interface AuthInterface {
 
 	/**
 	 * User login using email address

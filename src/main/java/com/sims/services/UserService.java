@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 import com.sims.configs.ConnectionProvider;
 import com.sims.models.User;
-import com.sims.services.interfaces.UserServiceInterface;
+import com.sims.services.interfaces.UserInterface;
 import com.sims.utils.QueryBuilder;
 
 /**
@@ -16,7 +16,7 @@ import com.sims.utils.QueryBuilder;
  * 
  * @author maneesh
  */
-public class UserService implements UserServiceInterface {
+public class UserService implements UserInterface {
 
 	@Override
 	public User getUserByEmail(String email) {
