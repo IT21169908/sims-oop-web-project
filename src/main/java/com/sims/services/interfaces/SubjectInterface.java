@@ -11,7 +11,7 @@ public interface SubjectInterface {
    public static final Logger log = Logger.getLogger(SubjectInterface.class.getName());
 
    /**
-    * CREATE - Add Subjects for employee table
+    * CREATE - Add subjects
     * @param subject
     * @return boolean
     * @throws Exception 
@@ -44,5 +44,14 @@ public interface SubjectInterface {
     * @throws Exception 
     */
    public boolean update(Subject subject) throws Exception;
+   
+   
+   /**
+    * READ - Get all from subject table with teachers details
+    * @param
+    * @return ArrayList<Subject>
+    * @throws Exception 
+    */
+   public ArrayList<Subject> allWithTeachers() throws Exception;
    
 }

@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -31,12 +32,18 @@
 				<div class="page-header">
 					<div class="row align-items-center">
 						<div class="col">
-							<h3 class="page-title">Edit Subject</h3>
+							<h3 class="page-title">Subjects List</h3>
 							<ul class="breadcrumb">
-								<li class="breadcrumb-item"><i class="fa fa-home"></i> <a href="/admin/dashboard">Dashboard</a></li>
-								<li class="breadcrumb-item"><a href="/admin/subjects">Subject List</a></li>
-								<li class="breadcrumb-item active">Edit Subject</li>
+								<li class="breadcrumb-item"><i class="fa fa-home"></i> <a
+									href="/admin/dashboard">Dashboard</a></li>
+								<li class="breadcrumb-item active">Subjects List</li>
 							</ul>
+						</div>
+						<div class="col-auto text-end float-end ms-auto">
+							<a href="#" class="btn btn-outline-primary me-2"> <i
+								class="fas fa-download"></i>&emsp;Download
+							</a> <a href="/admin/subjects/add" class="btn btn-primary"><i
+								class="fas fa-plus"></i></a>
 						</div>
 					</div>
 				</div>
@@ -62,39 +69,47 @@
 						%>
 					</c:if>
 					<div class="col-sm-12">
-						<div class="card">
+						<div class="card card-table">
 							<div class="card-body">
-								<form action="/admin/subjects" method="POST">
-									<input type="hidden" name="_method" value="put" />
-									<input type="hidden" name="subject" value="${subject.id }" />
-									<div class="row">
-										<div class="col-12">
-											<h5 class="form-title">
-												<span>Subject Information</span>
-											</h5>
-										</div>
-										<div class="col-12 col-sm-6">
-											<div class="form-group">
-												<label>Subject Code</label> 
-												<input type="text"  value="${subject.code }" name="subject_code" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-12 col-sm-6">
-											<div class="form-group">
-												<label>Subject Title</label> 
-												<input type="text" value="${subject.title }" name="subject_title" class="form-control" required>
-											</div>
-										</div>
-										<div class="col-12">
-											<button type="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</div>
-								</form>
+								<div class="table-responsive">
+									<table class="table table-hover table-center mb-0"
+										id="subjects">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>CODE</th>
+												<th>TITLE</th>
+												<th>CREATED AT</th>
+												<th>UPDATED AT</th>
+												<th>TEACHERS</th>
+												<th>ACTION</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach var="subject" items="${subjectList}">
+												<tr id="subject-${subject.id}">
+													<td>${subject.id}</td>
+													<td>${subject.code}</td>
+													<td>${subject.title}</td>
+													<td>${subject.created_at}</td>
+													<td>${subject.updated_at}</td>
+													<td>${subject.teachers_count}</td>
+													<td><a
+														href="/admin/subjects-assign?subject=${subject.id}"
+														class="btn btn-sm bg-success-light me-2"> <i
+															class="fas fa-user-plus"></i>&emsp;Assign
+													</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<jsp:include page="/resources/views/admin/components/footer.jsp" />
 
 		</div>
@@ -104,7 +119,7 @@
 
 	<jsp:include page="/resources/views/admin/components/scripts.jsp" />
 	<script src="/resources/views/admin/js/subject-manager.js"></script>
-	
+
 </body>
 
 </html>

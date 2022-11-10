@@ -15,6 +15,7 @@ import com.sims.project.tables.StudentTable;
 import com.sims.project.tables.SubjectsTable;
 import com.sims.project.tables.UpdateUserTable;
 import com.sims.project.tables.UsersTable;
+import com.sims.project.tables.TeacherSubjectsTable;
 
 /**
 *
@@ -36,6 +37,7 @@ public class MigrateTables extends DatabaseEnvironment {
         new GradesTable(stmt);
         new StudentTable(stmt);
         new UpdateUserTable(stmt);
+        new TeacherSubjectsTable(stmt);
         
 	}
     

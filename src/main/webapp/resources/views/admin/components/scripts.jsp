@@ -24,6 +24,9 @@
  	<script src="/resources/assets/plugins/datatables/datatables.min.js"></script>
  	
    <script src="/resources/assets/js/script.js"></script>
+
+   <script src="/resources/assets/plugins/select2-bootstrap/js/select2.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
    
    <script type="text/javascript">
 	   const Toast = Swal.mixin({
@@ -36,5 +39,20 @@
 		     toast.addEventListener('mouseenter', Swal.stopTimer)
 		     toast.addEventListener('mouseleave', Swal.resumeTimer)
 		   }
-		 })
+		 });
+	   
+	  	// Assign Teacher multi select
+		$(function () {
+		  $("select").each(function () {
+		    $(this).select2({
+		      theme: "bootstrap4",
+		      width: "100%",
+		      placeholder: $(this).attr("placeholder"),
+		      allowClear: Boolean($(this).data("allow-clear"))
+		    });
+		  });
+		});
+	   
 	</script>
+	
+	

@@ -78,8 +78,7 @@ public class SubjectServlet extends HttpServlet {
       }
    }
 
-   private void doCreate(HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException {
+   private void doCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       RequestDispatcher dispatcher = getServletContext()
             .getRequestDispatcher("/resources/views/admin/subjects/create.jsp");
       dispatcher.forward(request, response);
