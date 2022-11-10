@@ -6,11 +6,11 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 <div class="header">
 
 	<div class="header-left">
-		<a href="/admin/dashboard" class="logo"> 
-			<img src="/resources/images/logo-text.png" alt="Logo">
-		</a> 
-		<a href="/admin/dashboard" class="logo logo-small"> 
-			<img src="/resources/images/plain-logo.png" alt="Logo" width="30" height="30">
+		<a href="/admin/dashboard" class="logo"> <img
+			src="/resources/images/logo-text.png" alt="Logo">
+		</a> <a href="/admin/dashboard" class="logo logo-small"> <img
+			src="/resources/images/plain-logo.png" alt="Logo" width="30"
+			height="30">
 		</a>
 	</div>
 
@@ -53,8 +53,8 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 									</span>
 									<div class="media-body flex-grow-1">
 										<p class="noti-details">
-											<span class="noti-title">Section head</span> need approval for<span
-												class="noti-title">New documents</span>
+											<span class="noti-title">Welcome</span> Good day <span
+												class="noti-title"> ${user.name}</span>
 										</p>
 										<p class="noti-time">
 											<span class="notification-time">4 mins ago</span>
@@ -70,17 +70,19 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 			</div></li>
 
 
-		<li class="nav-item dropdown has-arrow">
-			<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown"> 
-				<span class="user-img">
-					<img class="rounded-circle" src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }" 
-					width="31" alt="${user.name != null ? user.name : 'Admin user img' }">
-				</span>
-			</a>
+		<li class="nav-item dropdown has-arrow"><a href="#"
+			class="dropdown-toggle nav-link" data-bs-toggle="dropdown"> <span
+				class="user-img"> <img class="rounded-circle"
+					src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }"
+					width="31"
+					alt="${user.name != null ? user.name : 'Admin user img' }">
+			</span>
+		</a>
 			<div class="dropdown-menu">
 				<div class="user-header">
 					<div class="avatar avatar-sm">
-						<img src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }"
+						<img
+							src="${user.profile_photo != null ? user.profile_photo : '/resources/images/user.png' }"
 							alt="User Image" class="avatar-img rounded-circle">
 					</div>
 					<div class="user-text">
@@ -88,10 +90,9 @@ ${user == null || user.type != "admin" ? "<script>location.href = '/logout'</scr
 						<p class="text-muted mb-0">Administrator</p>
 					</div>
 				</div>
-				<a class="dropdown-item" href="/profile">My Profile</a> 
-				<a class="dropdown-item" href="/logout">Logout</a>
-			</div>
-		</li>
+				<a class="dropdown-item" href="/admin/profile">My Profile</a> <a
+					class="dropdown-item" href="/logout">Logout</a>
+			</div></li>
 
 	</ul>
 
