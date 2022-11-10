@@ -72,13 +72,13 @@
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>Subject Code</label> 
-												<input type="text" name="subject_code" class="form-control">
+												<input type="text" name="subject_code" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>Subject Title</label> 
-												<input type="text" name="subject_title" class="form-control">
+												<input type="text" name="subject_title" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-12">

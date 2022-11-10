@@ -25,6 +25,7 @@
 					<ul>
 						<li><a href="/admin/subjects">Subject List</a></li>
 						<li><a href="/admin/subjects/add">Subject Add</a></li>
+						<li><a href="/admin/subjects-assign">Assign Teachers</a></li>
 					</ul>
 				</li>
 				<li class="submenu">

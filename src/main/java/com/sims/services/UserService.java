@@ -27,9 +27,11 @@ import com.sims.utils.QueryBuilder;
  * @author maneesh, nishadi
  */
 public class UserService implements UserInterface {
+   
+   private final String TABLE = "users";
 
    /** Initialize logger */
-   public static final Logger log = Logger.getLogger(LeaveRequestService.class.getName());
+   public static final Logger log = Logger.getLogger(UserService.class.getName());
 
    private static Connection connection;
 
@@ -251,5 +253,45 @@ public class UserService implements UserInterface {
       }
       return false;
    }
+
+	@Override
+	public ArrayList<User> allByType(String user_type) throws Exception {
+	   ArrayList<User> TeachersList = new ArrayList<User>();
+	   
+	   try {
+          connection = ConnectionProvider.getConnection();
+
+          preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "` WHERE `type` = ?");
+          preparedStatement.setString(1, user_type);
+
+          ResultSet resultSet = preparedStatement.executeQuery();
+
+          while (resultSet.next()) {
+             User user = new User(resultSet.getInt(1));
+             TeachersList.add(user);
+          }
+
+       } 
+       catch (Exception e) {
+          log.log(Level.SEVERE, e.getMessage());
+          throw new Exception(e.getMessage());
+       } 
+       finally {
+          // Close prepared statement and database connectivity at the end of transaction
+          try {
+             if (preparedStatement != null) {
+                preparedStatement.close();
+             }
+             if (connection != null) {
+                connection.close();
+             }
+          } 
+          catch (SQLException e) {
+             log.log(Level.SEVERE, e.getMessage());
+          }
+       }
+       return TeachersList;
+	   
+	}
 
 }

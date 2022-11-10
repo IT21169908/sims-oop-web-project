@@ -21,17 +21,21 @@ public class Subject {
    private String created_at;
    private String updated_at;
    
-   
+   // additional properties
+   private String teachers_count;
+
+
    public Subject() {
       super();
    }
    
-   public Subject(String code, String title, String created_at, String updated_at) {
+   public Subject(String code, String title, String created_at, String updated_at, String teachers_count) {
       super();
       this.code = code;
       this.title = title;
       this.created_at = created_at;
       this.updated_at = updated_at;
+      this.teachers_count = teachers_count;
    }
    
    public Subject(ResultSet rSet) {
@@ -114,6 +118,11 @@ public class Subject {
        this.title = rSet.getString(3);
        this.created_at = rSet.getString(4);
        this.updated_at = rSet.getString(5); 
+       try { 
+          this.teachers_count = rSet.getString(6) == null ? null : rSet.getString(6); 
+       } catch (Exception e) {
+          this.teachers_count = null;
+       }
    }
 
    /**
@@ -184,6 +193,20 @@ public class Subject {
     */
    public void setUpdated_at(String updated_at) {
       this.updated_at = updated_at;
+   }
+   
+   /**
+    * @return the teachers_count
+    */
+   public String getTeachers_count() {
+      return teachers_count;
+   }
+
+   /**
+    * @param teachers_count the teachers_count to set
+    */
+   public void setTeachers_count(String teachers_count) {
+      this.teachers_count = teachers_count;
    }
   
 }

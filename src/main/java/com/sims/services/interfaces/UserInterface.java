@@ -14,13 +14,7 @@ import com.sims.models.User;
  */
 public interface UserInterface {
 
-   /**
-    * Get User by using email address
-    * 
-    * @param email
-    * @return List<User>
-    */
-   public User getUserByEmail(String email);
+
 
    public ArrayList<User> all();
 
@@ -29,4 +23,19 @@ public interface UserInterface {
    public boolean create(User user) throws Exception;
 
    public boolean destroy(int user_id) throws Exception;
+
+	/**
+	 * Get User by using email address
+	 * @param email
+	 * @return List<User>
+	 */
+	public User getUserByEmail(String email);
+
+	/**
+	 * Get all from user table by type
+	 * @param usser_type
+	 * @return ArrayList<User>
+	 * @throws Exception 
+	 */
+    public ArrayList<User> allByType(String usser_type) throws Exception;
 }

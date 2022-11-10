@@ -11,7 +11,7 @@ public interface GradeInterface {
    public static final Logger log = Logger.getLogger(GradeInterface.class.getName());
 
    /**
-    * CREATE - Add Grades for employee table
+    * CREATE - Add grades
     * @param grade
     * @return boolean
     * @throws Exception 
