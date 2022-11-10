@@ -23,7 +23,11 @@ public class DatabaseEnvironment {
     protected static String DB_USERNAME = "root";
     protected static String DB_PASSWORD = "";
     
-    protected static Connection CON = null;
+    public static String getDB_NAME() {
+      return DB_NAME;
+   }
+
+   protected static Connection CON = null;
     
     protected static void getConnection(String createDatabase) throws ClassNotFoundException, SQLException {
     	

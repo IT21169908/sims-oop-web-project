@@ -5,6 +5,7 @@ package com.sims.models;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.sims.configs.ConnectionProvider;
 import com.sims.utils.QueryBuilder;
@@ -12,59 +13,88 @@ import com.sims.utils.QueryBuilder;
 /**
  * This is the User Model class
  * 
- * @author maneesh
+ * @author maneesh, Nishadi
  */
 
 public class User {
 
-	private int id;
-	private String name;
-	private String email;
-	private String password;
-	private String nic;
-	private String profile_photo;
-	private String type;
-	private String email_verified;
-	private String email_Verify_code;
-	private String password_reset_code;
-	private String created_at;
-	private String updated_at;
-	
-	public User() {
-	   super();
-	}
-	
-	public User(int id) {
-	     super(); 
-	      
-	     Connection con = null;
-	     
-	     try {
-	         con = ConnectionProvider.getConnection();
-	         ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM users WHERE id='"+id+"'");
-	         
-	         if (rSet != null) {  
-	            if (rSet.next()) {
-	                this.id = rSet.getInt(1);
-	                this.name = rSet.getString(2);
-	                this.email = rSet.getString(3);
-	                this.password = "";
-	                this.nic = rSet.getString(5);
-	                this.profile_photo = rSet.getString(6);
-	                this.type = rSet.getString(7);
-	                this.email_verified = rSet.getString(8);
-	                this.email_Verify_code = rSet.getString(9);
-	                this.password_reset_code = rSet.getString(10); 
-	                this.created_at = rSet.getString(11); 
-	                this.updated_at = rSet.getString(12); 
-	            } 
-	         }
-	          
-	     } catch (Exception e) {
-	         e.printStackTrace();
-	     } 
-	      
-	}
+   private int id;
+   private String name;
+   private String email;
+   private String mobile_number;
+   private String password;
+   private String nic;
+   private String gender;
+   private String dob;
+   private String profile_photo;
+   private String type;
+   private String email_verified;
+   private String email_Verify_code;
+   private String password_reset_code;
+   private String created_at;
+   private String updated_at;
+
+   public User() {
+      super();
+   }
+
+   public User(int id) {
+      super();
+
+      Connection con = null;
+
+      try {
+         con = ConnectionProvider.getConnection();
+         ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM users WHERE id='" + id + "'");
+
+         if (rSet != null) {
+            if (rSet.next()) {
+               this.id = rSet.getInt(1);
+               this.name = rSet.getString(2);
+               this.email = rSet.getString(3);
+               this.mobile_number = rSet.getString(4);
+               this.password = "";
+               this.nic = rSet.getString(6);
+               this.gender = rSet.getString(7);
+               this.dob = rSet.getString(8);
+               this.profile_photo = rSet.getString(9);
+               this.type = rSet.getString(10);
+               this.email_verified = rSet.getString(11);
+               this.email_Verify_code = rSet.getString(12);
+               this.password_reset_code = rSet.getString(13);
+               this.created_at = rSet.getString(14);
+               this.updated_at = rSet.getString(15);
+            }
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+
+   }
+
+   public User(ResultSet rSet) {
+      try {
+         this.id = rSet.getInt(1);
+         this.name = rSet.getString(2);
+         this.email = rSet.getString(3);
+         this.mobile_number = rSet.getString(4);
+         this.password = "";
+         this.nic = rSet.getString(6);
+         this.gender = rSet.getString(7);
+         this.dob = rSet.getString(8);
+         this.profile_photo = rSet.getString(9);
+         this.type = rSet.getString(10);
+         this.email_verified = rSet.getString(11);
+         this.email_Verify_code = rSet.getString(12);
+         this.password_reset_code = rSet.getString(13);
+         this.created_at = rSet.getString(14);
+         this.updated_at = rSet.getString(15);
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
 
    public int getId() {
       return id;
@@ -161,6 +191,29 @@ public class User {
    public void setUpdated_at(String updated_at) {
       this.updated_at = updated_at;
    }
- 
+
+   public String getGender() {
+      return gender;
+   }
+
+   public void setGender(String gender) {
+      this.gender = gender;
+   }
+
+   public String getDob() {
+      return dob;
+   }
+
+   public void setDob(String dob) {
+      this.dob = dob;
+   }
+
+   public String getMobile_number() {
+      return mobile_number;
+   }
+
+   public void setMobile_number(String mobile_number) {
+      this.mobile_number = mobile_number;
+   }
 
 }

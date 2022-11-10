@@ -35,7 +35,7 @@ public class StudentServlet extends HttpServlet {
 		
 	   try {
 	      StudentService studentService =  new StudentService();
-	      ArrayList<Student> studentList = studentService.getAllStudents();
+	      ArrayList<Student> studentList = studentService.all();
 	      request.setAttribute("studentList", studentList);
 	      RequestDispatcher studentDetails = request.getRequestDispatcher("/resources/views/student/students.jsp");
 	      studentDetails.forward(request, response);

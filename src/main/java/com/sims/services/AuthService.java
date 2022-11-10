@@ -36,7 +36,7 @@ public class AuthService implements AuthInterface {
 				
 				if (rSet.next()) {
 				    userId = rSet.getInt(1);
-					emailUserPassword = rSet.getString(4);
+					emailUserPassword = rSet.getString(5);
 				}
 				
 				// Check password with BCrypt
@@ -46,7 +46,8 @@ public class AuthService implements AuthInterface {
 			}
 			ConnectionProvider.close(con);
 
-		} catch (Exception e) {
+		} catch (Exception e) { 
+		    System.out.println("+===== AuthService Exception =====+");
             e.printStackTrace();
         }
 		
