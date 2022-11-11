@@ -124,6 +124,49 @@ public class PeriodService implements PeriodInterface {
       }
       return periods;
    }
+   @Override
+   public ArrayList<Period> allByTeacher(int teacher_id) throws Exception {
+      
+      
+      ArrayList<Period> periods = new ArrayList<Period>();
+      
+      try {
+         
+         preparedStatement = connection.prepareStatement(
+               "SELECT periods.*, subjects.title subject_title, grades.title grade_title, users.name teacher_name "
+               + "FROM `periods`, subjects, grades, users "
+               + "WHERE periods.subject_id = subjects.id AND periods.grade_id = grades.id AND periods.teacher_id = users.id "
+               + "AND periods.teacher_id = ?");
+
+         preparedStatement.setInt(1, teacher_id);
+         ResultSet resultSet = preparedStatement.executeQuery();
+         
+         while (resultSet.next()) {
+            Period period = new Period(resultSet);
+            periods.add(period);
+         }
+         
+      } catch (Exception e) {
+         log.log(Level.SEVERE, e.getMessage());
+      } finally {
+         // Close prepared statement and database connectivity at the end of transaction
+         try {
+            if (preparedStatement != null) {
+               preparedStatement.close();
+            }  
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+             ** when using the singleton pattern for "ConnectionProvider"
+             **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
+         } catch (SQLException e) {
+            log.log(Level.SEVERE, e.getMessage());
+         }
+      }
+      return periods;
+   }
 
    @Override
    public boolean update(Period period) throws Exception {

@@ -200,10 +200,14 @@ public class LeaveRequestService implements LeaveRequestInterface {
 
    @Override
    public ArrayList<LeaveRequest> allByUser(int user_id) {
-
+      
       ArrayList<LeaveRequest> LeaveRequestList = new ArrayList<LeaveRequest>();
 
       try {
+         
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection.prepareStatement("SELECT * FROM `leave_requests` WHERE user_id = ?");
          preparedStatement.setInt(1, user_id);
 
