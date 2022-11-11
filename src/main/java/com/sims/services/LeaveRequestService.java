@@ -217,17 +217,18 @@ public class LeaveRequestService implements LeaveRequestInterface {
       } catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
       } finally {
-         /*
-          * Close prepared statement and database connectivity at the end of
-          * transaction
-          */
+         // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            }  
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
          }
