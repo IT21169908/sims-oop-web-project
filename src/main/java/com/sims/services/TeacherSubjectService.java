@@ -25,7 +25,9 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
    @Override
    public boolean create(TeacherSubject teacher_subject) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("INSERT INTO `" + TABLE + "` (`teacher_id`, `subject_id`) VALUES (?,?)");
          connection.setAutoCommit(false);
@@ -70,7 +72,9 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
       ArrayList<TeacherSubject> TeacherSubjectList = new ArrayList<TeacherSubject>();
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "`");
 
@@ -85,16 +89,20 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
       catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
          throw new Exception(e.getMessage());
-      } 
+      }
       finally {
          // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } 
          catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
@@ -106,7 +114,10 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
    @Override
    public boolean update(TeacherSubject teacher_subject) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `" + TABLE + "` SET `teacher_id`=?  WHERE `subject_id`=?");
@@ -149,7 +160,10 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
       
       if (teacher_id != null && !teacher_id.isEmpty() && subject_id != null && !subject_id.isEmpty()) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `" + TABLE + "` WHERE `teacher_id` = ? AND `subject_id` = ?");
             preparedStatement.setString(1, teacher_id);
             preparedStatement.setString(2, subject_id);
@@ -185,7 +199,10 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
       
       if (subject_id != null && !subject_id.isEmpty()) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `" + TABLE + "` WHERE `subject_id` = ?");
             preparedStatement.setString(1, subject_id);
             preparedStatement.executeUpdate();
@@ -220,7 +237,9 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
       ArrayList<TeacherSubject> TeacherSubjectList = new ArrayList<TeacherSubject>();
       
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "` WHERE `subject_id` = ?");
          preparedStatement.setInt(1, subject_id);
@@ -242,10 +261,14 @@ public class TeacherSubjectService implements TeacherSubjectInterface {
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+         //   if (connection != null) {
+         //      connection.close();
+         //   }
          } 
          catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());

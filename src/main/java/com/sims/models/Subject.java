@@ -50,11 +50,14 @@ public class Subject {
    public Subject(int id) {
          super();
        
-         Connection con = null;
+         Connection connection = null;
          
          try {
-             con = ConnectionProvider.getConnection();
-             ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM subjects WHERE id='"+ id +"'");
+
+             ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+             connection = connectionProvider.getConnection();
+             
+             ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM subjects WHERE id='"+ id +"'");
              if (rSet != null) {  
                 try {
                    if (rSet.next()) { 
@@ -69,25 +72,35 @@ public class Subject {
          catch (Exception e) {
              e.printStackTrace();
          } 
-         finally {
-            try {
-               ConnectionProvider.close(con);
-            } 
-            catch (SQLException e) {
-               e.printStackTrace();
-            }
-         }
+         /** 
+          ** No need to close the connection for "SELECT queries" 
+          ** when using the singleton pattern for "ConnectionProvider"
+         **/
+//         finally {
+//         // Close prepared statement and database connectivity at the end of transaction
+//            try {
+//               if (connection != null) {
+//                  connection.close();
+//               }
+//            }  
+//            catch (SQLException e) {
+//               e.printStackTrace();
+//            }
+//         }
       
    }
    
    public Subject(String code) {
       super();
     
-      Connection con = null;
+      Connection connection = null;
       
       try {
-          con = ConnectionProvider.getConnection();
-          ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM subjects WHERE code='"+ code +"'");
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+          
+          ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM subjects WHERE code='"+ code +"'");
           if (rSet != null) {  
              try {
                 if (rSet.next()) { 
@@ -102,14 +115,21 @@ public class Subject {
       catch (Exception e) {
           e.printStackTrace();
       } 
-      finally {
-         try {
-            ConnectionProvider.close(con);
-         } 
-         catch (SQLException e) {
-            e.printStackTrace();
-         }
-      }
+      /** 
+      ** No need to close the connection for "SELECT queries" 
+      ** when using the singleton pattern for "ConnectionProvider"
+      **/
+//    finally {
+//    // Close prepared statement and database connectivity at the end of transaction
+//       try {
+//          if (connection != null) {
+//             connection.close();
+//          }
+//       }  
+//       catch (SQLException e) {
+//          e.printStackTrace();
+//       }
+//    }
 }
     
    private void mapResultSetToPrivetProperty(ResultSet rSet) throws SQLException { 

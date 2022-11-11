@@ -26,7 +26,9 @@ public class LeaveRequestService implements LeaveRequestInterface {
    public boolean create(LeaveRequest leave_req) {
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection
                .prepareStatement(
@@ -77,7 +79,10 @@ public class LeaveRequestService implements LeaveRequestInterface {
    public boolean update(LeaveRequest leave_req) {
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `leave_requests` SET `date`=?,`days_count`=?,`reason`=?,`status` = ? , `cancel_reason`= ?, `updated_at` = ? WHERE `id` = ?");
@@ -121,7 +126,9 @@ public class LeaveRequestService implements LeaveRequestInterface {
       ArrayList<LeaveRequest> LeaveRequestList = new ArrayList<LeaveRequest>();
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("SELECT * FROM `leave_requests`");
 
@@ -134,18 +141,20 @@ public class LeaveRequestService implements LeaveRequestInterface {
 
       } catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
-      } finally {
-         /*
-          * Close prepared statement and database connectivity at the end of
-          * transaction
-          */
+      }
+      finally {
+         // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
          }
@@ -158,7 +167,10 @@ public class LeaveRequestService implements LeaveRequestInterface {
       // TODO Auto-generated method stub
       if (leave_id != null && !leave_id.isEmpty()) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `leave_requests` WHERE `id` = ?");
             preparedStatement.setString(1, leave_id);
             preparedStatement.executeUpdate();

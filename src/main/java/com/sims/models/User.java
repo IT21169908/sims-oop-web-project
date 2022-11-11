@@ -41,11 +41,14 @@ public class User {
    public User(int id) {
       super();
 
-      Connection con = null;
+      Connection connection = null;
 
       try {
-         con = ConnectionProvider.getConnection();
-         ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM users WHERE id='" + id + "'");
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+             
+         ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM users WHERE id='" + id + "'");
 
          if (rSet != null) {
             if (rSet.next()) {
