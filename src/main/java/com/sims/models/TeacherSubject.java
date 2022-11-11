@@ -15,6 +15,8 @@ import com.sims.utils.QueryBuilder;
 
 public class TeacherSubject {
 
+   private String teacher_name;
+   private String subject_title;
    private int teacher_id;
    private int subject_id;
 
@@ -79,6 +81,12 @@ public class TeacherSubject {
    private void mapResultSetToPrivetProperty(ResultSet rSet) throws SQLException {
       this.teacher_id = rSet.getInt(1);
       this.subject_id = rSet.getInt(2);
+
+      User user = new User(teacher_id);
+      Subject Subject = new Subject(subject_id);
+
+      teacher_name = user.getName();
+      subject_title = Subject.getTitle();
    }
 
    /**
@@ -107,6 +115,22 @@ public class TeacherSubject {
     */
    public void setSubject_id(int subject_id) {
       this.subject_id = subject_id;
+   }
+
+   public String getTeacher_name() {
+      return teacher_name;
+   }
+
+   public void setTeacher_name(String teacher_name) {
+      this.teacher_name = teacher_name;
+   }
+
+   public String getSubject_title() {
+      return subject_title;
+   }
+
+   public void setSubject_title(String subject_title) {
+      this.subject_title = subject_title;
    }
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.sims.project.tables.GradesTable;
 import com.sims.project.tables.LeaveRequestTable;
+import com.sims.project.tables.PeriodTable;
 import com.sims.project.tables.StudentTable;
 import com.sims.project.tables.SubjectsTable;
 import com.sims.project.tables.UpdateUserTable;
@@ -38,6 +39,7 @@ public class MigrateTables extends DatabaseEnvironment {
         new StudentTable(stmt);
         new UpdateUserTable(stmt);
         new TeacherSubjectsTable(stmt);
+        new PeriodTable(stmt);
         
 	}
     

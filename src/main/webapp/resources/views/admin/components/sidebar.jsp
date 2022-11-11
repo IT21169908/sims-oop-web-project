@@ -5,10 +5,10 @@
 				<li class="menu-title">
 					<span>Main Menu</span>
 				</li>
-
-				<li class="menu-title">
-					<span><a href="/admin/dashboard">Dashboard</a></span>
+				<li>
+					<a href="/admin/dashboard"><i class="fas fa-home"></i> <span>Dashboard</span></a>
 				</li>
+				 
 				<li class="submenu">
 					<a href="#">
 						<i class="fas fa-users"></i> <span>Users</span> <span class="menu-arrow"></span>
@@ -35,6 +35,15 @@
 					<ul>
 						<li><a href="/admin/grades">Grade List</a></li>
 						<li><a href="/admin/grades/add">Grade Add</a></li>
+					</ul>
+				</li>
+				<li class="submenu">
+					<a href="#">
+						<i class="fas fas fa-calendar-day"></i><span>Periods</span><span class="menu-arrow"></span>
+					</a>
+					<ul>
+						<li><a href="/admin/periods/create">Create</a></li>
+						<li><a href="/admin/periods">Manage</a></li>
 					</ul>
 				</li>
 				 
