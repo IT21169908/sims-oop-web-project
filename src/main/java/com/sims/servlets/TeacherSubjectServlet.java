@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sims.configs.ConnectionProvider;
 import com.sims.models.Subject;
 import com.sims.models.TeacherSubject;
 import com.sims.models.User;
@@ -24,7 +25,8 @@ import com.sims.services.interfaces.UserInterface;
 /**
  * Servlet implementation class TeacherSubjectServlet
  */
-@WebServlet("/admin/subjects-assign")
+//@WebServlet("/admin/subjects-assign")
+@WebServlet(asyncSupported = true, urlPatterns = { "/admin/subjects-assign" })
 public class TeacherSubjectServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
 

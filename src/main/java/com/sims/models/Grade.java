@@ -44,11 +44,14 @@ public class Grade {
    public Grade(int id) {
          super();
        
-         Connection con = null;
+         Connection connection = null;
          
          try {
-             con = ConnectionProvider.getConnection();
-             ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM grades WHERE id='"+ id +"'");
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+            
+             ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM grades WHERE id='"+ id +"'");
              if (rSet != null) {  
                 try {
                    if (rSet.next()) { 
@@ -63,18 +66,22 @@ public class Grade {
          catch (Exception e) {
              e.printStackTrace();
          } 
-         finally {
-            try {
-               ConnectionProvider.close(con);
-            } 
-            catch (SQLException e) {
-               e.printStackTrace();
-            }
-         }
+         /** 
+          ** No need to close the connection for "SELECT queries" 
+          ** when using the singleton pattern for "ConnectionProvider"
+         **/
+//       finally {
+//          try {
+//             if (connection != null) {
+//                connection.close();
+//             } 
+//            catch (SQLException e) {
+//               e.printStackTrace();
+//            }
+//         }
       
    }
    
-    
    private void mapResultSetToPrivetProperty(ResultSet rSet) throws SQLException { 
        this.id = rSet.getInt(1);
        this.title = rSet.getString(2);

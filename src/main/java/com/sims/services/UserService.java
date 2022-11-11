@@ -41,11 +41,14 @@ public class UserService implements UserInterface {
    public User getUserByEmail(String email) {
 
       User emailUser = null;
-      Connection con = null;
+//      Connection con = null;
 
       try {
-         con = ConnectionProvider.getConnection();
-         ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM users WHERE email='" + email + "'");
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
+         ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM users WHERE email='" + email + "'");
 
          if (rSet != null) {
             if (rSet.next()) {
@@ -53,12 +56,23 @@ public class UserService implements UserInterface {
                emailUser = new User(id);
             }
          }
-         ConnectionProvider.close(con);
 
       } catch (Exception e) {
          e.printStackTrace();
-      }
-
+      } 
+      /** 
+       ** No need to close the connection for "SELECT queries" 
+         ** when using the singleton pattern for "ConnectionProvider"
+      **/
+      // finally {
+      //    try {
+      //       if (connection != null) {
+      //          connection.close();
+      //       } 
+      //      catch (SQLException e) {
+      //         e.printStackTrace();
+      //      }
+      //   }
       return emailUser;
    }
 
@@ -67,7 +81,9 @@ public class UserService implements UserInterface {
       ArrayList<User> userList = new ArrayList<User>();
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("SELECT * FROM `users` WHERE type <> 'admin'");
 
@@ -85,10 +101,14 @@ public class UserService implements UserInterface {
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
          }
@@ -99,7 +119,9 @@ public class UserService implements UserInterface {
    @Override
    public boolean create(User user) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement(
                "INSERT INTO `users`(`name`,`email`,`mobile_number`,`password`,`nic`,`gender`,`dob`,`type`) VALUES(?,?,?,?,?,?,?,?)",
@@ -166,7 +188,10 @@ public class UserService implements UserInterface {
    @Override
    public boolean update(User user) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `users` SET `name` = ?, `email` = ?,  `nic` = ?,  `mobile_number` = ?, `gender` = ?, `dob` = ?, `updated_at` = ? WHERE `id` = ? ");
@@ -227,7 +252,10 @@ public class UserService implements UserInterface {
    public boolean destroy(int user_id) throws Exception {
       if (user_id != 0 && user_id > 0) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `users` WHERE `id` = ?");
             preparedStatement.setInt(1, user_id);
             preparedStatement.executeUpdate();
@@ -259,7 +287,9 @@ public class UserService implements UserInterface {
 	   ArrayList<User> TeachersList = new ArrayList<User>();
 	   
 	   try {
-          connection = ConnectionProvider.getConnection();
+
+	      ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+	      connection = connectionProvider.getConnection();
 
           preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "` WHERE `type` = ?");
           preparedStatement.setString(1, user_type);
@@ -281,10 +311,14 @@ public class UserService implements UserInterface {
           try {
              if (preparedStatement != null) {
                 preparedStatement.close();
-             }
-             if (connection != null) {
-                connection.close();
-             }
+             } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            //  if (connection != null) {
+            //     connection.close();
+            //  }
           } 
           catch (SQLException e) {
              log.log(Level.SEVERE, e.getMessage());

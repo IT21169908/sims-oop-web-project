@@ -27,7 +27,9 @@ public class GradeService implements GradeInterface {
    @Override
    public boolean create(Grade grade) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection(); 
 
          preparedStatement = connection.prepareStatement("INSERT INTO `" + TABLE + "` (`title`) VALUES (?)");
          connection.setAutoCommit(false);
@@ -71,8 +73,10 @@ public class GradeService implements GradeInterface {
       ArrayList<Grade> GradeList = new ArrayList<Grade>();
 
       try {
-         connection = ConnectionProvider.getConnection();
 
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "`");
 
          ResultSet resultSet = preparedStatement.executeQuery();
@@ -86,16 +90,20 @@ public class GradeService implements GradeInterface {
       catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
          throw new Exception(e.getMessage());
-      } 
+      }
       finally {
          // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
             }
-            if (connection != null) {
-               connection.close();
-            }
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } 
          catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
@@ -107,7 +115,10 @@ public class GradeService implements GradeInterface {
    @Override
    public boolean update(Grade grade) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `" + TABLE + "` SET `title`=?, `updated_at`=? WHERE `id`=?");
@@ -151,7 +162,10 @@ public class GradeService implements GradeInterface {
       
       if (grade_id != null && !grade_id.isEmpty()) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `" + TABLE + "` WHERE `id` = ?");
             preparedStatement.setString(1, grade_id);
             preparedStatement.executeUpdate();

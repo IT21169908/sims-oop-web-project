@@ -27,7 +27,9 @@ public class StudentService implements StudentInterface {
    @Override
    public boolean create(Student student) throws Exception { 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement(
                "INSERT INTO `students`(`parent_name`, `address`, `user_id`) VALUES(?,?,?)");
@@ -68,8 +70,11 @@ public class StudentService implements StudentInterface {
    
    @Override
    public ArrayList<Student> all() throws Exception {
-      Connection con = ConnectionProvider.getConnection();
-      PreparedStatement pstm = con.prepareStatement("SELECT * FROM Student");
+
+      ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+      connection = connectionProvider.getConnection();
+
+      PreparedStatement pstm = connection.prepareStatement("SELECT * FROM Student");
 
       ResultSet rst = pstm.executeQuery();
 
@@ -91,7 +96,10 @@ public class StudentService implements StudentInterface {
    @Override
    public boolean update(Student student) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `students` SET   `parent_name`= ? ,`address`= ? ,`updated_at`= ? WHERE `user_id` = ?");

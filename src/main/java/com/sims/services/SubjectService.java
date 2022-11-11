@@ -27,7 +27,10 @@ public class SubjectService implements SubjectInterface {
    @Override
    public boolean create(Subject subject) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
 
          preparedStatement = connection.prepareStatement("INSERT INTO `" + TABLE + "` (`code`, `title`) VALUES (?,?)");
          connection.setAutoCommit(false);
@@ -72,7 +75,9 @@ public class SubjectService implements SubjectInterface {
       ArrayList<Subject> SubjectList = new ArrayList<Subject>();
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement("SELECT * FROM `" + TABLE + "`");
 
@@ -87,16 +92,20 @@ public class SubjectService implements SubjectInterface {
       catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
          throw new Exception(e.getMessage());
-      } 
+      }
       finally {
          // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } 
          catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());
@@ -108,7 +117,10 @@ public class SubjectService implements SubjectInterface {
    @Override
    public boolean update(Subject subject) throws Exception {
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
          preparedStatement = connection
                .prepareStatement(
                      "UPDATE `" + TABLE + "` SET `code`=?, `title`=?, `updated_at`=? WHERE `id`=?");
@@ -153,7 +165,10 @@ public class SubjectService implements SubjectInterface {
       
       if (subject_id != null && !subject_id.isEmpty()) {
          try {
-            connection = ConnectionProvider.getConnection();
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+         
             preparedStatement = connection.prepareStatement("DELETE FROM `" + TABLE + "` WHERE `id` = ?");
             preparedStatement.setString(1, subject_id);
             preparedStatement.executeUpdate();
@@ -188,7 +203,9 @@ public class SubjectService implements SubjectInterface {
       ArrayList<Subject> SubjectList = new ArrayList<Subject>();
 
       try {
-         connection = ConnectionProvider.getConnection();
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
 
          preparedStatement = connection.prepareStatement(
                "SELECT sub.*, (SELECT Count(*) FROM teacher_subjects WHERE subject_id = sub.id) as teachers_count FROM subjects sub"
@@ -205,16 +222,20 @@ public class SubjectService implements SubjectInterface {
       catch (Exception e) {
          log.log(Level.SEVERE, e.getMessage());
          throw new Exception(e.getMessage());
-      } 
+      }
       finally {
          // Close prepared statement and database connectivity at the end of transaction
          try {
             if (preparedStatement != null) {
                preparedStatement.close();
-            }
-            if (connection != null) {
-               connection.close();
-            }
+            } 
+            /** 
+             ** No need to close the connection for "SELECT queries" 
+            ** when using the singleton pattern for "ConnectionProvider"
+            **/
+            // if (connection != null) {
+            //    connection.close();
+            // }
          } 
          catch (SQLException e) {
             log.log(Level.SEVERE, e.getMessage());

@@ -24,13 +24,16 @@ public class AuthService implements AuthInterface {
 	public User userLoginByEmail(String email, String password) {
 		
 	    User user = new User();
-		Connection con = null;
+		Connection connection = null;
 		String emailUserPassword = null;
 		int userId = 0;
 		
 		try {
-	        con = ConnectionProvider.getConnection();
-			ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM users WHERE email='" + email + "'");
+
+		   ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+           connection = connectionProvider.getConnection();
+             
+			ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM users WHERE email='" + email + "'");
 			
 			if (rSet != null) {
 				
@@ -44,12 +47,24 @@ public class AuthService implements AuthInterface {
 					user = new User(userId);
 				}
 			}
-			ConnectionProvider.close(con);
 
-		} catch (Exception e) { 
-		    System.out.println("+===== AuthService Exception =====+");
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			System.out.println("+===== AuthService Exception =====+");
+			e.printStackTrace();
+		} 
+         /** 
+          ** No need to close the connection for "SELECT queries" 
+          ** when using the singleton pattern for "ConnectionProvider"
+         **/
+//       finally {
+//          try {
+//             if (connection != null) {
+//                connection.close();
+//             } 
+//            catch (SQLException e) {
+//               e.printStackTrace();
+//            }
+//         }
 		
 		return user;
 	}

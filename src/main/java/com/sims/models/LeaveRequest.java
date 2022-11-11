@@ -59,11 +59,14 @@ public class LeaveRequest {
          // System.out.println("===================LOG START============================"); 
          // System.out.println("ID: " + id); 
          
-         Connection con = null;
+         Connection connection = null;
          
          try {
-             con = ConnectionProvider.getConnection();
-             ResultSet rSet = QueryBuilder.readData(con, "SELECT * FROM leave_requests WHERE id='"+ id +"'");
+
+            ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+            connection = connectionProvider.getConnection();
+
+             ResultSet rSet = QueryBuilder.readData(connection, "SELECT * FROM leave_requests WHERE id='"+ id +"'");
              if (rSet != null) {  
                 try {
                    if (rSet.next()) { 
@@ -76,16 +79,22 @@ public class LeaveRequest {
              }
          } catch (Exception e) {
              e.printStackTrace();
-         } finally {
-            try {
-               ConnectionProvider.close(con);
-            } catch (SQLException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-            } 
-            // System.out.println("====================LOG END============================="); 
-         }
-      
+         } 
+         /** 
+          ** No need to close the connection for "SELECT queries" 
+          ** when using the singleton pattern for "ConnectionProvider"
+         **/
+//       finally {
+//          try {
+//             if (connection != null) {
+//                connection.close();
+//             }
+//            catch (SQLException e) {
+//               // TODO Auto-generated catch block
+//               e.printStackTrace();
+//            } 
+//            // System.out.println("====================LOG END============================="); 
+//         }
    }
     
 
