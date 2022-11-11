@@ -35,12 +35,12 @@ public class Period {
    }
 
    public Period(int id) {
-      super();
-
-      Connection con = null;
-
+      super(); 
       try {
-         con = ConnectionProvider.getConnection();
+         
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         Connection con =  connectionProvider.getConnection();
+         
          ResultSet rSet = QueryBuilder.readData(
                con,
                "SELECT "
@@ -60,15 +60,6 @@ public class Period {
          }
       } catch (Exception e) {
          e.printStackTrace();
-      } finally {
-         try {
-            ConnectionProvider.close(con);
-         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-         }
-         // System.out.println("====================LOG
-         // END=============================");
       }
 
    }

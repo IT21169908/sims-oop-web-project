@@ -24,7 +24,14 @@ public class PeriodService implements PeriodInterface {
    private PreparedStatement preparedStatement;
 
    public PeriodService() {
-      connection = ConnectionProvider.getConnection();
+      ConnectionProvider connectionProvider;
+      try {
+         connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      } 
    }
 
    @Override
@@ -166,8 +173,7 @@ public class PeriodService implements PeriodInterface {
    @Override
    public boolean destroy(Integer id) throws Exception {
       if (id >= 0) {
-         try {
-            connection = ConnectionProvider.getConnection();
+         try { 
             preparedStatement = connection.prepareStatement("DELETE FROM `periods` WHERE `id` = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
