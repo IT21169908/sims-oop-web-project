@@ -42,6 +42,26 @@
 				</div>
 
 				<div class="row">
+					<c:if test="${ errors != null }">
+						<div class="d-flex justify-content-center w-100 mt-2">
+							<div class="alert alert-danger py-1 w-100" role="alert">
+								<span>${errors[0]}</span>
+							</div>
+						</div>
+						<%
+						request.getSession().removeAttribute("errors");
+						%>
+					</c:if>
+					<c:if test="${ success != null }">
+						<div class="d-flex justify-content-center w-100 mt-2">
+							<div class="alert alert-success py-1 w-100" role="alert">
+								<span>${success}</span>
+							</div>
+						</div>
+						<%
+						request.getSession().removeAttribute("success");
+						%>
+					</c:if>
 					<div class="col-md-12">
 						<div class="profile-header">
 							<div class="row align-items-center">
@@ -53,13 +73,13 @@
 								<div class="col ms-md-n2 profile-user-info">
 									<h4 class="user-name mb-0">${user.name }</h4>
 									<h6 class="text-muted">${user.email }</h6>
-									<div class="user-Location">
+									<!-- <div class="user-Location">
 										<i class="fas fa-map-marker-alt"></i> Florida, United States
 									</div>
-									<div class="about-text">Lorem ipsum dolor sit amet.</div>
+									<div class="about-text">Lorem ipsum dolor sit amet.</div> -->
 								</div>
 								<div class="col-auto profile-btn">
-									<a href="" class="btn btn-primary"> Edit </a>
+									<a href="/admin/users/edit?user=${user.id }" class="btn btn-primary"> Edit </a>
 								</div>
 							</div>
 						</div>
@@ -76,11 +96,11 @@
 							<div class="tab-pane fade show active" id="per_details_tab">
 
 								<div class="row">
-									<div class="col-lg-9">
+									<div class="col-lg-12">
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title d-flex justify-content-between">
-													<span>Personal Details</span> <a class="edit-link" 
+													<span>Personal Details</span> <a class="edit-link"
 														href="/admin/users/edit?user=${user.id }"> <i
 														class="far fa-edit me-1"></i>Edit
 													</a>
@@ -103,33 +123,17 @@
 													<p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Mobile</p>
 													<p class="col-sm-9">${user.mobile_number }</p>
 												</div>
-												<div class="row">
+												<!-- <div class="row">
 													<p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>
 													<p class="col-sm-9 mb-0">
 														4663 Agriculture Lane,<br> Miami,<br> Florida -
 														33165,<br> United States.
 													</p>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-3">
-
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title d-flex justify-content-between">
-													<span>Account Status</span> <a class="edit-link" href="#"><i
-														class="far fa-edit me-1"></i> Edit</a>
-												</h5>
-												<button class="btn btn-success" type="button">
-													<i class="fe fe-check-verified"></i> Active
-												</button>
-											</div>
-										</div>
-
-
-
-									</div>
+									 
 								</div>
 
 							</div>
@@ -141,18 +145,18 @@
 										<h5 class="card-title">Change Password</h5>
 										<div class="row">
 											<div class="col-md-10 col-lg-6">
-												<form>
+												<form action="/admin/profile" method="POST">
 													<div class="form-group">
-														<label>Old Password</label> <input type="password"
-															class="form-control">
+														<label>Current Password</label> <input type="password"
+															name="current_password" class="form-control" required>
 													</div>
 													<div class="form-group">
 														<label>New Password</label> <input type="password"
-															class="form-control">
+															name="new_password" id="password" class="form-control" pattern=".{8,}" required>
 													</div>
 													<div class="form-group">
 														<label>Confirm Password</label> <input type="password"
-															class="form-control">
+															name="confirm_password" id="confirm_password" class="form-control" pattern=".{8,}" required>
 													</div>
 													<button class="btn btn-primary" type="submit">Save
 														Changes</button>
@@ -172,5 +176,20 @@
 	</div>
 
 	<jsp:include page="/resources/views/admin/components/scripts.jsp" />
+	<script type="text/javascript">
+		let password = document.getElementById("password"), confirm_password = document
+				.getElementById("confirm_password");
+
+		function validatePassword() {
+			if (password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
+	</script>
 </body>
 </html>
