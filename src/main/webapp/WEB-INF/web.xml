@@ -3,31 +3,14 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
-	
+
 	<display-name>sims-oop-web-project</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>/resources/views/index.jsp</welcome-file>
 	</welcome-file-list>
 
-	<!-- # Dashboard page route path -->
-	<servlet>
-		<servlet-name>dashboard</servlet-name>
-		<jsp-file>/resources/views/student-dashboard.jsp</jsp-file>
-	</servlet>
-
-	<!-- # Exam page route path -->
-	<servlet>
-		<servlet-name>exam</servlet-name>
-		<jsp-file>/resources/views/exam.jsp</jsp-file>
-	</servlet>
-	<!-- <servlet-mapping> 
-			<servlet-name>dashboard</servlet-name> 
-			<url-pattern>/dashboard</url-pattern> 
-		</servlet-mapping> -->
-
 	<!-- ================================================ TEACHER ROUTES START ================================================ -->
-
 	<!-- Main Dashboard -->
 	<servlet>
 		<servlet-name>teacher-dashboard</servlet-name>
@@ -37,11 +20,10 @@
 		<servlet-name>teacher-dashboard</servlet-name>
 		<url-pattern>/teacher/dashboard</url-pattern>
 	</servlet-mapping>
-
 	<!-- ================================================ TEACHER ROUTES END ================================================ -->
 
+
 	<!-- ================================================ ADMIN ROUTES START ================================================ -->
-	
 	<!-- Main Dashboard -->
 	<servlet>
 		<servlet-name>admin-dashboard</servlet-name>
@@ -51,8 +33,19 @@
 		<servlet-name>admin-dashboard</servlet-name>
 		<url-pattern>/admin/dashboard</url-pattern>
 	</servlet-mapping>
- 
-
 	<!-- ================================================ ADMIN ROUTES END ================================================ -->
-	
+
+
+	<!-- ================================================ STUDENT ROUTES START ================================================ -->
+	<!-- Main Dashboard -->
+	<servlet>
+		<servlet-name>student-dashboard</servlet-name>
+		<jsp-file>/resources/views/student/student-dashboard.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>student-dashboard</servlet-name>
+		<url-pattern>/student/dashboard</url-pattern>
+	</servlet-mapping>
+	<!-- ================================================ STUDENT ROUTES END ================================================ -->
+
 </web-app>
