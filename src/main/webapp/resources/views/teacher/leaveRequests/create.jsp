@@ -72,19 +72,19 @@
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>Leave Date</label> <input type="date" name="date"
-													class="form-control">
+													class="form-control past-disable" required>
 											</div>
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>No of days</label> 
-												<input type="number" name="days_count" class="form-control">
+												<input type="number" name="days_count" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group">
 												<label>Reason</label>
-												<textarea name="reason" class="form-control"></textarea>
+												<textarea name="reason" class="form-control" required></textarea>
 											</div>
 										</div>
 
@@ -106,6 +106,7 @@
 
 
 	<jsp:include page="/resources/views/teacher/components/scripts.jsp" />
+	<script src="/resources/views/teacher/js/leave-manager.js"></script>
 
 </body>
 

@@ -16,28 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sims.models.LeaveRequest;
+import com.sims.models.User;
 import com.sims.services.LeaveRequestService;
 import com.sims.services.interfaces.LeaveRequestInterface;
 
 /**
  * Servlet implementation class LeaveRequest
+ * 
+ * @author M.M.N.H.Fonseka
+ * 
  */
 @WebServlet("/teacher/leave-requests/*")
 public class LeaveRequestServlet extends HttpServlet {
    private static final long serialVersionUID = 1L;
 
-   /**
-    * @see HttpServlet#HttpServlet()
-    */
    public LeaveRequestServlet() {
       super();
-      // TODO Auto-generated constructor stub
    }
 
-   /**
-    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-    *      response)
-    */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
@@ -53,8 +49,20 @@ public class LeaveRequestServlet extends HttpServlet {
          try {
             switch (path_info) {
                case "/teacher/leave-requests":
+                  User loggedUser = null;
+                  try {
+                    loggedUser = (User) request.getSession(false).getAttribute("user"); 
+                  } catch (Exception e) {
+                     // TODO: handle exception
+                  } finally {
+                     if (loggedUser == null || loggedUser.getId() <= 0) {
+                        response.sendRedirect(request.getContextPath() + "/login");
+                        return;
+                     }
+                  } 
+                  
                   LeaveRequestInterface LeaveReqService = new LeaveRequestService();
-                  ArrayList<LeaveRequest> LeaveRequestList = LeaveReqService.all();
+                  ArrayList<LeaveRequest> LeaveRequestList = LeaveReqService.allByUser(loggedUser.getId());
 
                   request.setAttribute("LeaveRequestList", LeaveRequestList);
                   RequestDispatcher dispatcher = getServletContext()
@@ -98,10 +106,6 @@ public class LeaveRequestServlet extends HttpServlet {
       log("====================LEAVE MANAGER LOG: EDIT END=============================");
    }
 
-   /**
-    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-    *      response)
-    */
    protected void doPost(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
       // TODO Auto-generated method stub
@@ -121,7 +125,12 @@ public class LeaveRequestServlet extends HttpServlet {
             try {
                LeaveRequest RequestLeave = new LeaveRequest();
 
-               RequestLeave.setUser_id(1); // TODO: Get logged in user after login implemented
+               User loggedUser = (User) request.getSession(false).getAttribute("user");
+               if (loggedUser.getId() <= 0) {
+                  throw new Exception("unathorizes request!");
+               }
+
+               RequestLeave.setUser_id(loggedUser.getId());
                RequestLeave.setDate(request.getParameter("date"));
                RequestLeave.setDays_count(request.getParameter("days_count"));
                RequestLeave.setReason(request.getParameter("reason"));
@@ -144,13 +153,13 @@ public class LeaveRequestServlet extends HttpServlet {
                log("Exception: " + e.getMessage());
                log("====================LEAVE MANAGER LOG: doPost Exception END=============================");
 
-               errors.add("Something went wrong! Please try again.!");
+               errors.add(e.getMessage() != null ? e.getMessage() : "Something went wrong! Please try again.!");
                // request.setAttribute("errors", errors);
                request.getSession().setAttribute("errors", errors);
             } finally {
                log("======================REDIRECTING=============================");
                response.sendRedirect(request.getContextPath() + "leave-requests/add");
-            }            
+            }
             break;
       }
 
@@ -159,7 +168,7 @@ public class LeaveRequestServlet extends HttpServlet {
 
    @Override
    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      // TODO Auto-generated method stub
+
       List<String> errors = new ArrayList<>();
 
       try {
@@ -170,8 +179,10 @@ public class LeaveRequestServlet extends HttpServlet {
          RequestLeave.setDate(request.getParameter("date"));
          RequestLeave.setDays_count(request.getParameter("days_count"));
          RequestLeave.setReason(request.getParameter("reason"));
-         RequestLeave.setStatus("pending"); // TODO: facility to select status of leave for teacher and get value from input
-         RequestLeave.setCancel_reason(request.getParameter("cancel_reason")); // TODO: if status cancel require cancel reason
+         RequestLeave.setStatus("pending"); // TODO: facility to select status of leave for teacher and get value from
+                                            // input
+         RequestLeave.setCancel_reason(request.getParameter("cancel_reason")); // TODO: if status cancel require cancel
+                                                                               // reason
 
          LeaveRequestInterface RequestLeaveService = new LeaveRequestService();
 
@@ -190,7 +201,7 @@ public class LeaveRequestServlet extends HttpServlet {
          log("Exception: " + e.getMessage());
          log("====================LEAVE MANAGER LOG: doPut Exception END=============================");
 
-         errors.add("Something went wrong! Please try again.!");
+         errors.add(e.getMessage() != null ? e.getMessage() : "Something went wrong! Please try again.!");
          // request.setAttribute("errors", errors);
          request.getSession().setAttribute("errors", errors);
       } finally {

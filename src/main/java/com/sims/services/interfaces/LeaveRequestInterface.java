@@ -10,17 +10,14 @@ public interface LeaveRequestInterface {
    /** Initialize logger */
    public static final Logger log = Logger.getLogger(LeaveRequestInterface.class.getName());
    
-   /**
-    * Add employees for employee table
-    * @param employee
-    * @return 
-    * @throws Exception 
-    */
-   public boolean create(LeaveRequest leave_req);
+   public boolean create(LeaveRequest leave_req) throws Exception;
 
    public ArrayList<LeaveRequest> all();
    
    public boolean destroy(String leave_id);
 
-   boolean update(LeaveRequest leave);
+   boolean update(LeaveRequest leave) throws Exception;
+
+   public ArrayList<LeaveRequest> allByUser(int user_id);
+   
 }

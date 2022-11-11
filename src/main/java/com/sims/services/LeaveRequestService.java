@@ -23,7 +23,7 @@ public class LeaveRequestService implements LeaveRequestInterface {
    private PreparedStatement preparedStatement;
 
    @Override
-   public boolean create(LeaveRequest leave_req) {
+   public boolean create(LeaveRequest leave_req) throws Exception {
 
       try {
 
@@ -40,8 +40,7 @@ public class LeaveRequestService implements LeaveRequestInterface {
          preparedStatement.setString(3, leave_req.getDays_count());
          preparedStatement.setString(4, leave_req.getReason());
          preparedStatement.setString(5, leave_req.getStatus());
-
-         // Add employee
+ 
          preparedStatement.execute();
          connection.commit();
 
@@ -51,7 +50,7 @@ public class LeaveRequestService implements LeaveRequestInterface {
          log.log(Level.SEVERE,
                "==================== LOG LeaveRequestService preparedStatement Exception =============================");
          log.log(Level.SEVERE, e.getMessage());
-         return false;
+         throw new Exception(e.getMessage());
       } finally {
          /*
           * Close prepared statement and database connectivity at the end of
@@ -76,7 +75,7 @@ public class LeaveRequestService implements LeaveRequestInterface {
    }
 
    @Override
-   public boolean update(LeaveRequest leave_req) {
+   public boolean update(LeaveRequest leave_req) throws Exception {
 
       try {
 
@@ -101,7 +100,7 @@ public class LeaveRequestService implements LeaveRequestInterface {
          log.log(Level.SEVERE,
                "==================== LOG LeaveRequestService preparedStatement Exception =============================");
          log.log(Level.SEVERE, e.getMessage());
-         return false;
+         throw new Exception(e.getMessage());
       } finally {
          try {
             if (preparedStatement != null) {
@@ -198,5 +197,45 @@ public class LeaveRequestService implements LeaveRequestInterface {
          }
       }
       return false;
+   }
+ 
+
+   @Override
+   public ArrayList<LeaveRequest> allByUser(int user_id) {
+
+      ArrayList<LeaveRequest> LeaveRequestList = new ArrayList<LeaveRequest>();
+
+      try { 
+         connection = ConnectionProvider.getConnection();
+
+         preparedStatement = connection.prepareStatement("SELECT * FROM `leave_requests` WHERE user_id = ?");
+         preparedStatement.setInt(1, user_id);
+         
+         ResultSet resultSet = preparedStatement.executeQuery();
+
+         while (resultSet.next()) {
+            LeaveRequest lRequest = new LeaveRequest(resultSet);
+            LeaveRequestList.add(lRequest);
+         }
+
+      } catch (Exception e) {
+         log.log(Level.SEVERE, e.getMessage());
+      } finally {
+         /*
+          * Close prepared statement and database connectivity at the end of
+          * transaction
+          */
+         try {
+            if (preparedStatement != null) {
+               preparedStatement.close();
+            }
+            if (connection != null) {
+               connection.close();
+            }
+         } catch (SQLException e) {
+            log.log(Level.SEVERE, e.getMessage());
+         }
+      }
+      return LeaveRequestList;
    }
 }

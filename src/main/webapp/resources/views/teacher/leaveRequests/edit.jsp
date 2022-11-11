@@ -76,19 +76,19 @@
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>Leave Date</label> 
-												<input type="date"  value="${leaveRequest.date }" name="date" class="form-control">
+												<input type="date"  value="${leaveRequest.date }" name="date" class="past-disable form-control" required>
 											</div>
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="form-group">
 												<label>No of days</label> 
-												<input type="number" value="${leaveRequest.days_count }" name="days_count" class="form-control">
+												<input type="number" value="${leaveRequest.days_count }" name="days_count" class="form-control" required>
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="form-group">
 												<label>Reason</label>
-												<textarea name="reason" class="form-control">${leaveRequest.reason }</textarea>
+												<textarea name="reason" class="form-control" required>${leaveRequest.reason }</textarea>
 											</div>
 										</div>
 										<div class="col-12">

@@ -1,27 +1,30 @@
 $(function() {
 
-	console.log('LEAVE MANAGER JS LOADED')
+	console.log('PERIOD MANAGER JS LOADED')
 
-	var dtToday = new Date();
-	var month = dtToday.getMonth() + 1;
-	var day = dtToday.getDate();
-	var year = dtToday.getFullYear();
-	if (month < 10)
-		month = '0' + month.toString();
-	if (day < 10)
-		day = '0' + day.toString();
-	var maxDate = year + '-' + month + '-' + day;
-	console.log(maxDate);
-	$('.past-disable').attr('min', maxDate);
-
-	let leave_table = null;
-	if ($("#leave-requests").length) {
-		leave_table = $("#leave-requests").DataTable();
+	let period_table = null;
+	if ($("#periods").length) {
+		period_table = $("#periods").DataTable();
 	}
 
+	$(document).on("change", "#subject", function() {
+		let subject_id = $(this).val();
+		$.ajax({
+			type: "GET",
+			url: "/admin/periods?subject_id=" + subject_id,
+			contentType: "application/json",
+			success: function(response) {
+				$("#teachers").empty()
+				response.map(teacher => {
+					$("#teachers").append(`<option value="${teacher.teacher_id}">${teacher.teacher_name}</option>`)
+				})
+			},
+		});
+	})
 
-	$(document).on("click", ".delete-leave", function() {
-		let leave_id = $(this).data('leave');
+
+	$(document).on("click", ".delete-period", function() {
+		let period_id = $(this).data('period');
 		Swal.fire({
 			title: "Are you sure?",
 			text: "You won't be able to revert this!",
@@ -39,26 +42,27 @@ $(function() {
 			response.value &&
 				$.ajax({
 					type: "DELETE",
-					url: "/teacher/leave-requests",
+					url: "/admin/periods",
 					data: JSON.stringify({
-						leave_id,
+						period_id,
 					}),
 					contentType: "application/json",
 					success: function(response) {
 						console.log(response);
 						if (response.status == "deleted") {
-							leave_table.rows("#leave-" + leave_id)
+							period_table.rows("#period-" + period_id)
 								.remove()
 								.draw();
 							Toast.fire({
 								icon: 'success',
-								title: 'Your file has been deleted.'
+								title: 'Your period has been deleted.'
 							})
 						}
 						else console.error(response.message);
 					},
 				});
 
-		})
-	})
-})
+		});
+	});
+
+});
