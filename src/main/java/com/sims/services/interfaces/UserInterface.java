@@ -10,7 +10,7 @@ import com.sims.models.User;
 /**
  * This is the User Service interface
  * 
- * @author maneesh,nishadi
+ * @author maneesh,nishadi, M.M.N.H.Fonseka
  */
 public interface UserInterface {
 
@@ -38,4 +38,6 @@ public interface UserInterface {
 	 * @throws Exception 
 	 */
     public ArrayList<User> allByType(String usser_type) throws Exception;
+
+   public boolean changePassword(User user) throws Exception;
 }

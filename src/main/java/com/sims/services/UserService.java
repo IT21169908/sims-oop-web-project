@@ -24,7 +24,7 @@ import com.sims.utils.QueryBuilder;
 /**
  * This is the User Service class
  * 
- * @author maneesh, nishadi
+ * @author maneesh, nishadi, M.M.N.H.Fonseka
  */
 public class UserService implements UserInterface {
    
@@ -327,5 +327,47 @@ public class UserService implements UserInterface {
        return TeachersList;
 	   
 	}
+
+   public boolean changePassword(User user) throws Exception {
+      try {
+
+         ConnectionProvider connectionProvider = ConnectionProvider.getConnectionProvider();
+         connection = connectionProvider.getConnection();
+         
+         preparedStatement = connection
+               .prepareStatement(
+                     "UPDATE `users` SET `password` = ? , updated_at = ? WHERE `id` = ? ");
+
+         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+ 
+         preparedStatement.setString(1, user.getPassword());
+         preparedStatement.setString(2, now);
+         preparedStatement.setInt(3, user.getId());
+         preparedStatement.executeUpdate();
+ 
+         log.log(Level.INFO, "==================== SQL EXECUTED SUCCESSFULLY =============================");
+         return true;
+      } catch (Exception e) {
+         log.log(Level.SEVERE,
+               "==================== LOG: UserService preparedStatement Exception =============================");
+         log.log(Level.SEVERE, e.getMessage());
+         throw new Exception(e.getMessage());
+      } finally {
+         try {
+            if (preparedStatement != null) {
+               preparedStatement.close();
+            }
+            if (connection != null) {
+               connection.close();
+            }
+            log.log(Level.INFO,
+                  "==================== UserService preparedStatement DB CONNECTION CLOSED =============================");
+         } catch (SQLException e) {
+            log.log(Level.SEVERE,
+                  "================= UserService preparedStatement DB CONNECTION CLOSE FAILED ==========================");
+            log.log(Level.SEVERE, e.getMessage());
+         }
+      }
+   }
 
 }

@@ -101,7 +101,8 @@ public class LoginServlet extends HttpServlet {
          request.setAttribute("email", email);
          request.setAttribute("password", password);
          request.setAttribute("errors", errors);
-         request.getRequestDispatcher("login").forward(request, response);
+         request.getSession().setAttribute("errors", errors);
+         response.sendRedirect(request.getContextPath() + "login");
          return;
       }
 
@@ -114,8 +115,10 @@ public class LoginServlet extends HttpServlet {
          // If user not found then redirect back to login with errors
          if (user == null || user.getId() <= 0) {
             errors.add("The Username or Password is incorrect..!");
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("login").forward(request, response);
+            request.getSession().setAttribute("errors", errors);
+            response.sendRedirect(request.getContextPath() + "login");
+            return;
+//            request.getRequestDispatcher("login").forward(request, response);
          }
 
          log("==================== LOGIN LOG: set session user =============================");

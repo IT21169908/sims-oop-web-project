@@ -7,6 +7,8 @@
    
    <script src="/resources/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
    
+   <script src="/resources/assets/js/jquery.maskedinput.min.js"></script>
+   
    <script src="/resources/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
    
    <script src="/resources/assets/plugins/apexchart/apexcharts.min.js"></script>
