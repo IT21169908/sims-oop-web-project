@@ -94,16 +94,31 @@ _____________________
 * Topic: **Online School Information Management System**
 * Module: **Object-Oriented Programming**
 * Project link: 
-* Project Github link: 
+* Project Github link: [https://github.com/IT21169908/sims-oop-web-project](https://github.com/IT21169908/sims-oop-web-project/tree/viva-submitted-main)
+* Viva Date: 2022-11-11 (Project closed)
 
 ## Online School Information Management System
 
 | Registration Number | Name | Email | Contribution |
 | :---: | :---: | :---: | :---: |
-| **IT21169908** | **Prashantha K.G.M** | ***it21169908@my.sliit.lk*** |  |
-| IT21156410 | Fonseka M.M.N.H | *it21156410@my.sliit.lk* |  |
-| IT21156038 | N.K.N.Nawanjala | *it21156038@my.sliit.lk* |  |
-| IT21170966 | Thennakoon T.M.I.C | *it21170966@my.sliit.lk* |  |
+| **IT21169908** | **Prashantha K.G.M** | ***it21169908@my.sliit.lk*** | ✅ Full project structure & project initializer methods |
+|  |  |  |  ✅ Login (authentication and authorization) |
+|  |  |  |  ✅ Landing page and other related designs |
+|  |  |  |  ✅ Implements ConnectionProvider (Database connection) with Singleton design pattern |
+|  |  |  |  ✅ Subject - CRUD operations |
+|  |  |  |  ✅ Assign teachers - CRUD operations |
+|  |  |  |  ✅ Grades - CRUD operations |
+|  |  |  |  |
+| IT21156410 | Fonseka M.M.N.H | *it21156410@my.sliit.lk* | ✅ Project flow pattern changes & design changes |
+|  |  |  |  ✅ Leave Management - CRUD Operations |
+|  |  |  |  ✅ Periods/Class - CRUD Operations |
+|  |  |  |  |
+| IT21156038 | N.K.N.Nawanjala | *it21156038@my.sliit.lk* | ✅ User registration - CRUD Operations |
+|  |  |  |  ✅ Related designs changes |
+|  |  |  |  |
+| IT21170966 | Thennakoon T.M.I.C | *it21170966@my.sliit.lk* | ✅ Student - CRUD Operations |
+|  |  |  |  ✅ Related designs changes |
+|  |  |  |  |
 
 ______________
 
