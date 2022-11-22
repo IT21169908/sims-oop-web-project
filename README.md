@@ -110,9 +110,12 @@ _____________________
 |  |  |  |  ✅ Grades - CRUD operations |
 |  |  |  |  |
 | IT21156410 | Fonseka M.M.N.H | *it21156410@my.sliit.lk* | ✅ Project flow pattern changes & design changes |
+|  |  |  |  ✅ Template Method Design Pattern in servelet  |
 |  |  |  |  ✅ Leave Management - CRUD Operations |
 |  |  |  |  ✅ Periods/Class - CRUD Operations |
-|  |  |  |  |
+|  |  |  |  ✅ Admin & Teacher Profile Update  |
+|  |  |  |  ✅ Change Password  |
+|  |  |  |  | 
 | IT21156038 | N.K.N.Nawanjala | *it21156038@my.sliit.lk* | ✅ User registration - CRUD Operations |
 |  |  |  |  ✅ Related designs changes |
 |  |  |  |  |
